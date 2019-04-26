@@ -1,5 +1,5 @@
 
-public class removeSame {
+public class Array21 {
     /**
      * leetcode 26
      *@param nums
