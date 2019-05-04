@@ -8,16 +8,20 @@ public class LinkedList46 {
     public class ListNode {
         int val;
         ListNode next;
-        ListNode(int x) { val = x; }
+
+        ListNode(int x) {
+            val = x;
+        }
     }
+
     public boolean hasCycle(ListNode head) {
-        if(head==null)
+        if (head == null)
             return false;
-        ListNode fast=head,slow=head;
-        while(fast!=null&&fast.next!=null){
-            slow=slow.next;
-            fast=fast.next.next;
-            if(slow==fast)
+        ListNode fast = head, slow = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast)
                 return true;
         }
         return false;
