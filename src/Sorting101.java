@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @ClassName Sorting101
@@ -9,38 +11,42 @@ import java.util.Arrays;
  */
 public class Sorting101 {
     public int[][] merge(int[][] intervals) {
-        int min=Integer.MAX_VALUE;
-        int max=Integer.MIN_VALUE;
-        for(int i=0;i<intervals.length;i++){
-            for(int j=0;j<2;j++){
-                if(intervals[i][j]>max){
-                    max=intervals[i][j];
-                } else if (intervals[i][j]<min){
-                    min=intervals[i][j];
-                }
+        ArrayList<Item> nums=new ArrayList<>();
+        for(int[] inter:intervals){
+            nums.add(new Item(inter[0],inter[1]));
+        }
+        Collections.sort(nums, Comparator.comparingInt(Item::getStart));
+        int left=0;
+        Item temp;
+        for (int i = 1; i < nums.size(); ) {
+            temp=nums.get(i);
+            if(temp.end<=nums.get(left).end){
+                nums.remove(i);
+            } else if(temp.start>nums.get(left).end){
+                i++;
+                left++;
+            } else {
+                nums.get(left).end=nums.get(left).end>temp.end?nums.get(left).end:temp.end;
+                nums.remove(i);
             }
         }
-        byte[] space=new byte[max-min+1];
-        for(int[] nums:intervals) {
-            Arrays.fill(space,nums[0]-min,nums[1]-min,(byte)1);
-        }
-        ArrayList<Integer> boun=new ArrayList<>();
-        for (int i = 0; i < space.length; i++) {
-            if(space[i]==1){
-                boun.add(i+min);
-                while(i<space.length&&space[i]==1){
-                    i++;
-                }
-                boun.add(i+min);
-            }
-        }
-        int size=boun.size()/2;
-        int[][] res=new int[size][2];
-        for (int i = 0; i < size; i++) {
-            res[i][0]=boun.get(2*i);
-            res[i][1]=boun.get(2*i+1);
+        int[][] res=new int[nums.size()][2];
+        for (int i = 0; i < res.length ; i++) {
+            res[i][0]=nums.get(i).start;
+            res[i][1]=nums.get(i).end;
         }
         return res;
+    }
+    class Item{
+        public Item(int start,int end){
+            this.start=start;
+            this.end=end;
+        }
+        public int start;
+        public int end;
+        public int getStart(){
+            return start;
+        }
     }
 }
 
