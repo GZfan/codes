@@ -7,9 +7,9 @@ public class Array21 {
      */
     public int removeDuplicates(int[] nums) {
         int flag = 0, front = 1;
-        if (nums.length == 1)
+        if (nums.length == 1) {
             return 1;
-        else {
+        } else {
             while (front <= nums.length - 1) {
                 if (nums[front] > nums[flag]) {
                     flag++;
