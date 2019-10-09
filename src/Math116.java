@@ -5,6 +5,9 @@
  * @Date 19-6-12
  */
 public class Math116 {
+    public static void main(String[] args) {
+        System.out.println("Hello");
+    }
     public int mySqrt(int x) {
         if (x == 0 || x == 1) {
             return x;
