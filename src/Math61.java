@@ -8,6 +8,7 @@ import java.util.Arrays;
  */
 public class Math61 {
 
+
     public int countPrimes(int n) {
         boolean[] prime=new boolean[n+1];
         if (n == 0 || n == 1 || n == 2) {
